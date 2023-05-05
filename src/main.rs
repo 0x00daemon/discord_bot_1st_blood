@@ -118,13 +118,8 @@ async fn main() {
                             // If this is the first solve
                             if !announced_solves.contains_key(&challenge.id) {
                                 w.content(format!(
-                                    "First blood for {} goes to {}! :knife::drop_of_blood:",
+                                    "First blood for **{}** goes to **{}**! :drop_of_blood:",
                                     challenge.name, solver.name
-                                ))
-                            } else {
-                                w.content(format!(
-                                    "{} just solved {}! :tada:",
-                                    solver.name, challenge.name
                                 ))
                             }
                         })

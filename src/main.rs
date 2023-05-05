@@ -121,6 +121,11 @@ async fn main() {
                                     "First blood for **{}** goes to **{}**! :drop_of_blood:",
                                     challenge.name, solver.name
                                 ))
+                            } else {
+                                w.content(format!(
+                                    "{} just solved {}! :tada:",
+                                    solver.name, challenge.name
+                                ))
                             }
                         })
                         .await

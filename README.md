@@ -7,7 +7,7 @@ A simple webhook based Discord bot to announce CTFd solves
 Install with
 
 ```bash
-cargo install --git https://github.com/jordanbertasso/ctfd-solve-announcer-discord
+cargo install --git https://github.com/Nissen96/ctfd-solve-announcer-discord
 ```
 
 Run with

@@ -27,11 +27,7 @@ docker build --tag ctfdsolveannouncerdiscord .
 Run a container using the created image and provide the environment variables
 
 ```bash
-docker run -d --name CtfdSolveAnnouncerDiscord \ 
-    -e WEBHOOK_URL=<DISCORD_WEBHOOK_URL> \
-    -e CTFD_URL=<YOUR_CTFD_APP_URL> \
-    -e CTFD_API_KEY=<YOUR_CTFD_API_KEY> \
-    ctfdsolveannouncerdiscord
+docker run -d --name CtfdSolveAnnouncerDiscord -e WEBHOOK_URL=<DISCORD_WEBHOOK_URL> -e CTFD_URL=<CTFD_APP_URL> -e CTFD_API_KEY=<CTFD_API_KEY> ctfdsolveannouncerdiscord
 ```
 
 To create a Discord webhook URL, go to Server Settings -> Integrations -> Webhooks -> New Webhook.

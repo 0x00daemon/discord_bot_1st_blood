@@ -53,7 +53,7 @@ impl CTFdClient {
         headers.insert("Authorization", header::HeaderValue::from_str(&auth_value).unwrap());
 
         Self {
-            client: reqwest::Client::builder().default_headers(headers).build().unwrap(),
+            client: reqwest::Client::builder().danger_accept_invalid_certs(true).default_headers(headers).build().unwrap(),
             url,
         }
     }

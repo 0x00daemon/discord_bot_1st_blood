@@ -39,4 +39,6 @@ Choose a name for it (will show up as the sender of each solve message) and set 
 
 To create a CTFd API key, make a profile on your CTFd, choose `Settings` -> `Access Tokens`, click `Generate` and copy the token.
 
+**Note:** When testing on a local CTFd instance running on `localhost`, make sure to replace `localhost` with `host.docker.internal` in `CTFD_URL`.
+
 Enjoy!

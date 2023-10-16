@@ -25,13 +25,13 @@ struct Args {
     #[arg(long, short = 'a')]
     ctfd_api_key: String,
 
-    /// Whether to only announce first bloods
-    #[arg(long, default_value = "true")]
-    announce_first_blood_only: bool,
+    /// Announce all solves instead of only first-bloods
+    #[arg(long, action)]
+    announce_all_solves: bool,
 
-    /// Whether to skip announcing existing solves
-    #[arg(short, long, default_value = "true")]
-    skip_announcing_existing_solves: bool,
+    /// Announce existing solves from before bot was run
+    #[arg(long, action)]
+    announce_existing_solves: bool,
 
     /// Refresh interval in seconds
     #[arg(short, long, default_value = "5")]
@@ -65,7 +65,7 @@ async fn announce_solves(
     ctfd_client: &CTFdClient,
     announced_solves: &mut HashMap<i64, Vec<ChallengeSolver>>,
     db_conn: &Connection,
-    announce_first_blood_only: bool,
+    announce_all_solves: bool,
 ) {
     // Get a list of all challenges
     let challenges = ctfd_client.get_challenges().await.unwrap();
@@ -75,8 +75,8 @@ async fn announce_solves(
         let solvers = challenge.get_solves(ctfd_client).await.unwrap();
 
         for solver in solvers {
-            // If we only want to announce first bloods and this challenge has already been solved then skip
-            if announce_first_blood_only && announced_solves.contains_key(&challenge.id) {
+            // Skip already solved challenges unless all solves should be announced
+            if !announce_all_solves && announced_solves.contains_key(&challenge.id) {
                 continue;
             }
 
@@ -266,12 +266,12 @@ async fn main() {
     }
 
     // Skips announcing existing solves by default
-    if args.skip_announcing_existing_solves {
+    if !args.announce_existing_solves {
         populate_announced_solves(&ctfd_client, &mut announced_solves).await;
     }
 
     loop {
-        announce_solves(&http, &webhook, &ctfd_client, &mut announced_solves, &db_conn, args.announce_first_blood_only).await;
+        announce_solves(&http, &webhook, &ctfd_client, &mut announced_solves, &db_conn, args.announce_all_solves).await;
         announce_top_10_overtakes(&http, &webhook, &ctfd_client, &db_conn).await;
 
         tokio::time::sleep(std::time::Duration::from_secs(args.refresh_interval_seconds)).await;

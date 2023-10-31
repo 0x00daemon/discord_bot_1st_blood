@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use reqwest::header;
 use serde::{Deserialize, Serialize};
 
@@ -39,11 +37,6 @@ pub struct ScoreboardEntry{
     pub name: String,
 }
 
-
-
-pub(crate) type TeamId = i64;
-pub(crate) type TeamPosition = i64;
-
 impl CTFdClient {
     pub fn new(url: String, api_key: String) -> Self {
         let mut headers = header::HeaderMap::new();
@@ -69,38 +62,6 @@ impl CTFdClient {
             .await?;
 
         Ok(response.data.unwrap())
-    }
-
-    pub async fn get_team(&self, team_id: i64) -> Result<Team, reqwest::Error>{
-        let url = format!("{}/api/v1/teams/{}", self.url, team_id);
-        let response = self
-            .client
-            .get(&url)
-            .send()
-            .await?
-            .json::<APIResponse<Team>>()
-            .await?;
-
-        Ok(response.data.unwrap())
-    }
-
-    pub async fn get_top_10_teams(&self) -> Result<HashMap<TeamId, TeamPosition>, reqwest::Error> {
-        let url = format!("{}/api/v1/scoreboard/top/10", self.url);
-        let response = self
-            .client
-            .get(&url)
-            .send()
-            .await?
-            .json::<APIResponse<HashMap<i64, ScoreboardEntry>>>()
-            .await?;
-
-        let mut teams = HashMap::new();
-
-        for (i, team) in response.data.unwrap() {
-            teams.insert(team.id, i);
-        }
-
-        Ok(teams)
     }
 }
 

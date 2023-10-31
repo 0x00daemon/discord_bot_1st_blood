@@ -1,9 +1,8 @@
 # CTFd First Blood Bot
 
-A simple webhook based Discord bot to announce CTFd solves.
+A simple webhook based Discord bot to announce CTFd first bloods.
 
-By default, the bot only announces first bloods but can be configured to announce every solve.
-It also skips any solves from before it was run but can be configured to announce any existing solves on CTFd.
+By default, the bot skips any first bloods achieved before it was run but can be configured to announce existing solves on CTFd.
 
 ## Command Options
 
@@ -17,9 +16,7 @@ Options:
           CTFd URL
   -a, --ctfd-api-key <CTFD_API_KEY>
           CTFd API Key
-      --announce-all-solves
-          Announce all solves instead of only first-bloods
-      --announce-existing-solves
+      --announce-existing
           Announce existing solves from before bot was run
   -r, --refresh-interval-seconds <REFRESH_INTERVAL_SECONDS>
           Refresh interval in seconds [default: 5]
@@ -29,7 +26,9 @@ Options:
           Print version
 ```
 
-To create a Discord webhook URL, go to `Server Settings` -> `Integrations` -> `Webhooks` -> `New Webhook`. Choose a name for it (will show up as the sender of each solve message) and set the channel for the messages. Then copy the webhook URL.
+To create a Discord webhook URL, go to `Server Settings` -> `Integrations` -> `Webhooks` -> `New Webhook`.
+Choose a name for it (will show up as the sender of each solve message) and set the channel for the messages.
+Then copy the webhook URL.
 
 To create a CTFd API key, make a profile on your CTFd, choose `Settings` -> `Access Tokens`, click `Generate` and copy the token.
 
@@ -55,7 +54,8 @@ ctfd-solve-announcer-discord --help
 
 ## Docker Usage
 
-The Dockerfile is configured to run the bot with default optional options. To modify these, change `CMD` in the Dockerfile before building.
+The Dockerfile is configured to run the bot with default optional options.
+To modify these, change `CMD` in the Dockerfile before building.
 
 Build the docker image with
 

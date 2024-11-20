@@ -73,8 +73,10 @@ docker run -d --name ctfd-solve-announcer-discord \
     ctfdsolveannouncerdiscord
 ```
 
-To create a Discord webhook URL, go to Server Settings -> Integrations -> Webhooks -> New Webhook. Choose a name for it (will show up as the sender of each solve message) and set the channel for the messages. Then copy the webhook URL.
-For the CTFD_URL, just put your ctfd website url.
-To create a CTFd API key, make a profile on your CTFd, choose Settings -> Access Tokens, click Generate and copy the token.
+- To create a Discord webhook URL, go to `Server Settings` -> `Integrations` -> `Webhooks` -> `New Webhook`.
+- Choose a name for it (will show up as the sender of each solve message) and set the channel for the messages.
+- Then copy the webhook URL.
+- For the CTFD_URL, just put your ctfd website url.
+- To create a CTFd API key, make a profile on your CTFd, choose `Settings` -> `Access Tokens`, click `Generate` and copy the token.
 
 **Note:** When testing on a local CTFd instance running on `localhost`, make sure to replace `localhost` with `host.docker.internal` in `CTFD_URL`.
